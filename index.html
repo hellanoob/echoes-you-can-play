@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0B0E">
+<title>Echoes You Can Play</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+</head>
+<body>
+<div id="stage" aria-hidden="true"></div>
+
+<main class="page">
+  <header class="head">
+    <p class="eyebrow">An interactive documentary · Jesse Xu</p>
+    <h1>Echoes You Can Play</h1>
+    <p class="lead">Three rooms of electronic instruments, from 1920 to now. Play each one with your hands, your phone or your body, and its history unlocks as you play.</p>
+  </header>
+
+  <ol class="rooms">
+    <li class="room" style="--accent:#7CCBFF;--on-accent:#06131D">
+      <figure class="art">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/RCA_Theremin_model_A-R_1264_circa_1930.jpg?width=700" alt="An RCA theremin from about 1930: a wooden cabinet on four legs with a loop antenna and an upright antenna." loading="lazy" onerror="this.closest('figure').classList.add('missing')">
+        <figcaption><a href="https://commons.wikimedia.org/wiki/File:RCA_Theremin_model_A-R_1264_circa_1930.jpg" target="_blank" rel="noopener">Photo: WikiSander, Wikimedia Commons, CC BY-SA 4.0</a></figcaption>
+      </figure>
+      <div class="info">
+        <p class="num">Room 1</p>
+        <h2>Theremin</h2>
+        <p class="place">Petrograd, 1920</p>
+        <p class="line">Played without touching it. The camera watches your hands in the air.</p>
+        <p class="tags">Camera · hands</p>
+        <button class="enter" type="button" data-room="theremin">Enter</button>
+      </div>
+    </li>
+    <li class="room" style="--accent:#FF6A2C;--on-accent:#1A0B03">
+      <figure class="art">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/MIM_Mixtur-Trautonium_CN5834.jpg?width=700" alt="A Mixtur-Trautonium: a wooden cabinet with a panel of knobs on top and two wire manuals sloping toward the player." loading="lazy" onerror="this.closest('figure').classList.add('missing')">
+        <figcaption><a href="https://commons.wikimedia.org/wiki/File:MIM_Mixtur-Trautonium_CN5834.jpg" target="_blank" rel="noopener">Photo: Morn the Gorn, Wikimedia Commons, CC BY-SA 3.0</a></figcaption>
+      </figure>
+      <div class="info">
+        <p class="num">Room 2</p>
+        <h2>Trautonium</h2>
+        <p class="place">Berlin, 1930</p>
+        <p class="line">Press a wire and slide along it. The phone’s tilt stands in for pressure.</p>
+        <p class="tags">Touch · tilt</p>
+        <button class="enter" type="button" data-room="trautonium">Enter</button>
+      </div>
+    </li>
+    <li class="room" style="--accent:#B6F24A;--on-accent:#121A05">
+      <figure class="art drawn">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A face in an EEG headband, with three brain waves above it.">
+          <rect width="400" height="300" fill="#0F0D14"/>
+          <path d="M20 58 C 70 40, 110 76, 160 58 S 250 40, 300 58 S 360 76, 380 58" fill="none" stroke="#7C9CFF" stroke-width="3"/>
+          <path d="M20 84 C 40 72, 60 96, 80 84 S 120 72, 140 84 S 180 96, 200 84 S 240 72, 260 84 S 300 96, 320 84 S 360 72, 380 84" fill="none" stroke="#B6F24A" stroke-width="3"/>
+          <path d="M20 108 l10 -8 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -16 l10 16 l10 -8" fill="none" stroke="#FF9F43" stroke-width="2.5" stroke-linejoin="round"/>
+          <ellipse cx="200" cy="215" rx="62" ry="82" fill="#231E2B" stroke="rgba(236,230,214,.4)" stroke-width="2"/>
+          <rect x="132" y="160" width="136" height="16" fill="#0C0B10"/>
+          <rect x="182" y="157" width="36" height="22" rx="7" fill="#19171F" stroke="rgba(236,230,214,.35)"/>
+          <circle cx="191" cy="168" r="3" fill="#7C9CFF"/><circle cx="200" cy="168" r="3" fill="#B6F24A"/><circle cx="209" cy="168" r="3" fill="#FF9F43"/>
+          <path d="M160 196 q14 -8 30 -2 M210 194 q16 -6 30 2" fill="none" stroke="#ECE6D6" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="176" cy="212" rx="12" ry="6" fill="#0E0C12"/><circle cx="176" cy="212" r="5" fill="#B6F24A"/>
+          <ellipse cx="224" cy="212" rx="12" ry="6" fill="#0E0C12"/><circle cx="224" cy="212" r="5" fill="#B6F24A"/>
+          <path d="M184 262 q16 6 32 0" fill="none" stroke="rgba(236,230,214,.45)" stroke-width="2"/>
+        </svg>
+      </figure>
+      <div class="info">
+        <p class="num">Room 3</p>
+        <h2>Prototype 5</h2>
+        <p class="place">Toronto, 2026</p>
+        <p class="line">My own instrument: a headband, a heartbeat, a laptop and a phone, wired into one patch.</p>
+        <p class="tags">Tap · drag · shake</p>
+        <button class="enter" type="button" data-room="prototype5">Enter</button>
+      </div>
+    </li>
+  </ol>
+
+  <footer class="foot">
+    <p class="note">Each room starts with a tap and has its own sound. Exit, in the corner of every room, brings you back here.</p>
+    <div class="share" id="share" hidden>
+      <div class="qr" id="qr"></div>
+      <p class="qr-text">Best on a phone. Scan this to open the rooms there.</p>
+    </div>
+  </footer>
+</main>
+
+<script src="sketch.js"></script>
+</body>
+</html>

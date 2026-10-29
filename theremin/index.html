@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0E12">
+<title>Theremin · Echoes You Can Play</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ml5@1.3.1/dist/ml5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+</head>
+<body>
+<div id="safe" aria-hidden="true"></div>
+
+<div id="app">
+<div id="stage"></div>
+
+<div class="hud" id="hud" hidden>
+  <button class="pill" id="exit-btn" type="button" hidden>Exit</button>
+  <button class="pill" id="help-btn" type="button">How to play</button>
+  <button class="pill" id="reach-btn" type="button" hidden>Set my reach</button>
+  <button class="pill" id="archive-btn" type="button">Archive<span class="count" id="archive-count">0/4</span></button>
+</div>
+
+<div class="toast" id="toast" role="status" hidden>
+  <span class="lab" id="toast-lab">Unlocked</span>
+  <strong id="toast-title"></strong>
+  <button id="toast-read" type="button">Read</button>
+</div>
+
+<section class="overlay" id="start" aria-labelledby="start-title">
+  <div class="start-inner">
+    <figure class="start-photo" id="start-photo"><img id="start-img" alt=""><figcaption><a id="start-credit" target="_blank" rel="noopener"></a><span class="credit-note">, cropped and dimmed</span></figcaption></figure>
+    <div class="start-head">
+      <button class="back-link" id="exit-link" type="button" hidden>‹ All rooms</button>
+      <p class="eyebrow">Echoes You Can Play · Room 1</p>
+      <h1 id="start-title">Theremin</h1>
+      <p class="sub">Petrograd, 1920</p>
+      <p class="lead">The first instrument you play without touching it. Move your hands in the air, and the history unlocks as you play.</p>
+    </div>
+    <div class="start-body">
+      <div class="start-block" id="start-how">
+        <p class="help" id="how-help"></p>
+        <p class="caveat" id="how-caveat"></p>
+        <p class="problem" id="how-problem" hidden></p>
+        <button class="big-btn" id="start-btn" type="button">Tap to start</button>
+        <button class="ghost-btn" id="fallback-btn" type="button" hidden></button>
+        <p class="tip" id="start-tip">The camera stays on this device. Nothing is recorded or sent anywhere.</p>
+        <div class="share" id="share" hidden>
+          <div class="qr" id="qr" hidden></div>
+          <p class="qr-text" id="qr-text">Or open this page on your phone.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="archive" role="dialog" aria-modal="true" aria-labelledby="archive-title" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head">
+      <h2 id="archive-title">Archive</h2>
+      <button class="close" id="archive-close" type="button">Back to the antennas</button>
+    </div>
+    <ol class="card-list" id="card-list"></ol>
+    <p class="about">The sound is made live, with no recordings. A real theremin senses your hands through two antennas, as part of its circuit. A phone or a laptop can’t do that, so the camera watches your hands instead, and how big your hand looks stands in for how close it is. The vibrato knob, the tuning aid and the range of notes are design choices for this room, not parts of the original instrument.</p>
+    <button class="text-btn" id="relock" type="button">Lock the cards again</button>
+  </div>
+</section>
+
+<section class="sheet" id="card" role="dialog" aria-modal="true" aria-labelledby="card-title" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head">
+      <p class="eyebrow" id="card-eyebrow"></p>
+      <button class="close" id="card-close" type="button">Back to the antennas</button>
+    </div>
+    <h2 id="card-title"></h2>
+    <figure id="card-fig" hidden><img id="card-img" alt=""><figcaption id="card-credit"></figcaption></figure>
+    <div class="card-body" id="card-body"></div>
+    <div class="sources"><p class="eyebrow">Sources</p><ul id="card-sources"></ul></div>
+  </div>
+</section>
+</div>
+
+<script src="cards.js"></script>
+<script src="sketch.js"></script>
+</body>
+</html>

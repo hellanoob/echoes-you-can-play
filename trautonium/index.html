@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#100D0B">
+<title>Trautonium · Echoes You Can Play</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+</head>
+<body>
+<div id="safe" aria-hidden="true"></div>
+
+<!-- everything lives in #app, so a phone held upright can turn the whole room sideways -->
+<div id="app">
+<div id="stage"></div>
+
+<div class="hud" id="hud" hidden>
+  <button class="pill" id="exit-btn" type="button" hidden>Exit</button>
+  <button class="pill" id="pad-btn" type="button" hidden>Tab: cursor</button>
+  <button class="pill" id="help-btn" type="button">How to play</button>
+  <button class="pill" id="archive-btn" type="button">Archive<span class="count" id="archive-count">0/4</span></button>
+</div>
+
+<div class="toast" id="toast" role="status" hidden>
+  <span class="lab" id="toast-lab">Unlocked</span>
+  <strong id="toast-title"></strong>
+  <button id="toast-read" type="button">Read</button>
+</div>
+
+<section class="overlay" id="start" aria-labelledby="start-title">
+  <div class="start-inner">
+    <figure class="start-photo" id="start-photo"><img id="start-img" alt=""><figcaption><a id="start-credit" target="_blank" rel="noopener"></a><span class="credit-note">, cropped and dimmed</span></figcaption></figure>
+    <div class="start-head">
+      <button class="back-link" id="exit-link" type="button" hidden>‹ All rooms</button>
+      <p class="eyebrow">Echoes You Can Play · Room 2</p>
+      <h1 id="start-title">Trautonium</h1>
+      <p class="sub">Berlin, 1930</p>
+      <p class="lead">Two manuals, one wire each. Press a wire and slide along it, and the history unlocks as you play.</p>
+    </div>
+    <div class="start-body">
+      <div class="start-block" id="start-how">
+        <p class="help" id="how-help"></p>
+        <p class="caveat" id="how-caveat"></p>
+        <button class="big-btn" id="start-btn" type="button">Tap to start</button>
+        <p class="tip" id="start-tip">No sound? Check the silent switch and the volume.</p>
+      </div>
+      <div class="start-block" id="start-phone" hidden>
+        <p class="help">This room is played on a phone. Lay it on something soft, put a finger on each rail, and press.</p>
+        <div class="qr-row">
+          <div class="qr" id="qr" hidden></div>
+          <p class="qr-text" id="qr-text">Open this page on your phone.</p>
+        </div>
+        <button class="ghost-btn" id="laptop-btn" type="button">Play here with the mouse</button>
+        <p class="tip">With a mouse or trackpad it plays one rail at a time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="narrow" id="narrow" aria-live="polite" hidden>
+  <div class="narrow-inner">
+    <p class="narrow-title">Make the window wider</p>
+    <p class="narrow-text">Three octaves need about 500 pixels across. Widen the window, or open the page in its own tab.</p>
+  </div>
+</section>
+
+<section class="sheet" id="archive" role="dialog" aria-modal="true" aria-labelledby="archive-title" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head">
+      <h2 id="archive-title">Archive</h2>
+      <button class="close" id="archive-close" type="button">Back to the wire</button>
+    </div>
+    <ol class="card-list" id="card-list"></ol>
+    <p class="about">The sound is made live, with no recordings. On a Trautonium, pressing the wire down harder makes it louder. A phone screen can’t feel pressure, so here the phone lies on something soft and the way it tips stands in. On a MacBook, the trackpad can read real pressure, and pressing past the deep click adds vibrato, which is a design choice. The panel is a simplified version of a Trautonium’s, not a replica.</p>
+    <button class="text-btn" id="relock" type="button">Lock the cards again</button>
+  </div>
+</section>
+
+<section class="sheet" id="card" role="dialog" aria-modal="true" aria-labelledby="card-title" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head">
+      <p class="eyebrow" id="card-eyebrow"></p>
+      <button class="close" id="card-close" type="button">Back to the wire</button>
+    </div>
+    <h2 id="card-title"></h2>
+    <figure id="card-fig" hidden><img id="card-img" alt=""><figcaption id="card-credit"></figcaption></figure>
+    <div class="card-body" id="card-body"></div>
+    <div class="sources"><p class="eyebrow">Sources</p><ul id="card-sources"></ul></div>
+  </div>
+</section>
+</div>
+
+<script src="cards.js"></script>
+<script src="sketch.js"></script>
+</body>
+</html>

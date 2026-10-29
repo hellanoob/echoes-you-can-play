@@ -1,0 +1,152 @@
+/* Echoes You Can Play, Room 3: Prototype 5. A dark studio, a face in a headband, a laptop on a black box, a rack strip of cables. */
+:root{
+  --bg:#0B0A0F;
+  --ivory:#ECE6D6;
+  --ivory-dim:rgba(236,230,214,.64);
+  --line:rgba(236,230,214,.15);
+  --neon:#B6F24A;
+  --neon-soft:rgba(182,242,74,.13);
+  --on-neon:#121A05;
+  --warm:#FF5FA2;
+  --f-title:"Jost","Futura","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Newsreader","Iowan Old Style",Georgia,serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ivory)}
+body{font-family:var(--f-title);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--neon);outline-offset:2px}
+p{margin:0}
+
+/* safe-area probe read by sketch.js */
+#safe{position:fixed;inset:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+
+/* The whole room. sketch.js sizes it, and on a phone held upright turns it a quarter turn. */
+#app{position:fixed;top:0;left:0;width:100vw;height:100vh;overflow:hidden;transform-origin:0 0}
+#stage{position:absolute;inset:0;touch-action:none}
+#stage canvas{display:block;touch-action:none}
+
+.eyebrow{font-family:var(--f-title);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ivory-dim)}
+
+/* the buttons in the top right corner, placed by sketch.js */
+.hud{position:absolute;z-index:2;display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:8px}
+.pill{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:rgba(22,19,28,.86);color:var(--ivory);font-size:.88rem;letter-spacing:.04em;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.pill:hover{border-color:var(--neon)}
+.pill.on{border-color:var(--neon);background:var(--neon-soft)}
+.pill .count{margin-left:6px;font-family:var(--f-mono);font-size:.8rem;color:var(--ivory-dim)}
+
+/* start screen and sheets */
+.overlay,.sheet{position:absolute;inset:0;z-index:10;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-top:max(20px, env(safe-area-inset-top, 0px));padding-bottom:max(24px, env(safe-area-inset-bottom, 0px))}
+/* turned sideways, the phone's top (the notch) is the room's left, and its bottom is the room's right */
+#app.turned .overlay,#app.turned .sheet{
+  padding-left:max(16px, env(safe-area-inset-top, 0px));padding-right:max(16px, env(safe-area-inset-bottom, 0px));
+  padding-top:max(16px, env(safe-area-inset-right, 0px));padding-bottom:max(16px, env(safe-area-inset-left, 0px))}
+.overlay{display:flex;background:radial-gradient(120% 80% at 50% 26%,#1d1426 0%,var(--bg) 62%)}
+.start-inner{width:100%;max-width:30rem;display:flex;flex-direction:column;gap:14px;margin:auto;padding-block:12px}
+.start-head,.start-block{display:flex;flex-direction:column;gap:12px}
+h1{margin:0;font-weight:500;font-size:clamp(2.6rem,11vw,4.2rem);line-height:1;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 0 34px rgba(182,242,74,.3)}
+.sub{font-family:var(--f-body);font-style:italic;font-size:1.25rem;color:var(--ivory-dim)}
+.lead{font-family:var(--f-body);font-size:1.1rem;line-height:1.45}
+.help{font-family:var(--f-body);font-size:1.05rem;line-height:1.45;color:var(--ivory)}
+.caveat{padding:10px 12px;border-radius:10px;border:1px solid var(--line);font-size:.86rem;line-height:1.45;color:var(--ivory-dim)}
+.problem{padding:10px 12px;border-radius:10px;border:1px solid var(--warm);background:rgba(255,179,92,.1);font-size:.92rem;line-height:1.45;color:var(--ivory)}
+.tip{font-size:.88rem;line-height:1.45;color:var(--ivory-dim)}
+.big-btn{margin-top:4px;min-height:56px;border:0;border-radius:14px;background:var(--neon);color:var(--on-neon);font-size:1.05rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 0 30px rgba(182,242,74,.38)}
+.ghost-btn{align-self:flex-start;min-height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:#17141c;font-size:.95rem;letter-spacing:.04em}
+.ghost-btn:hover{border-color:var(--neon)}
+.share{display:flex;align-items:center;gap:16px;margin-top:6px;padding-top:14px;border-top:1px solid var(--line)}
+.qr{flex:none;width:124px;height:124px;padding:8px;border-radius:12px;background:#fff}
+.qr svg{display:block;width:100%;height:100%}
+.qr-text{font-family:var(--f-body);font-size:1rem;line-height:1.45;color:var(--ivory-dim)}
+
+/* little height (a phone on its side): title on the left, how to play on the right */
+#app.short .start-inner{max-width:54rem;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:center;gap:28px;padding-block:4px}
+#app.short h1{font-size:2.5rem}
+#app.short .sub{font-size:1.1rem}
+#app.short .lead,#app.short .help{font-size:1rem}
+#app.short .start-block{gap:10px}
+#app.short .big-btn{min-height:50px}
+
+/* the start screen's photo, if cards.js sets one. It fades in once loaded; without one the figure is hidden */
+.start-photo{margin:0;display:flex;flex-direction:column;gap:6px}
+.start-photo img{display:block;max-width:100%;max-height:34vmin;width:auto;margin:0 auto;border-radius:10px;opacity:0;transition:opacity .6s ease}
+.start-photo.ready img{opacity:1}
+.start-photo figcaption{font-size:.72rem;line-height:1.4;color:var(--ivory-dim);text-align:center}
+.start-photo figcaption a{color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px}
+.credit-note{display:none}
+@media (min-width:900px){
+  #app:not(.short) .start-inner:has(#start-photo:not([hidden])){max-width:62rem;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);column-gap:52px;row-gap:14px;align-items:center}
+  #app:not(.short) .start-inner:has(#start-photo:not([hidden])) > .start-photo{grid-column:2;grid-row:1 / span 2;align-self:center}
+  #app:not(.short) .start-inner:has(#start-photo:not([hidden])) > .start-head{grid-column:1;grid-row:1;align-self:end}
+  #app:not(.short) .start-inner:has(#start-photo:not([hidden])) > .start-body{grid-column:1;grid-row:2;align-self:start}
+  #app:not(.short) .start-photo img{max-height:min(68vh,560px)}
+}
+/* a phone on its side: the photo is a dim backdrop behind the title, fading into the room */
+#app.short .start-photo{grid-column:1;grid-row:1;align-self:stretch;position:relative;min-height:220px;pointer-events:none}
+#app.short .start-photo img{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover;border-radius:0;
+  -webkit-mask-image:radial-gradient(75% 70% at 45% 45%,#000 30%,transparent 100%);mask-image:radial-gradient(75% 70% at 45% 45%,#000 30%,transparent 100%)}
+#app.short .start-photo.ready img{opacity:.3}
+#app.short .start-photo figcaption{position:absolute;left:0;right:0;bottom:-2px;font-size:.6rem;text-align:left;pointer-events:auto}
+#app.short .credit-note{display:inline}
+#app.short .start-head{grid-column:1;grid-row:1;position:relative;z-index:1}
+#app.short .start-body{grid-column:2;grid-row:1}
+
+.sheet{background:rgba(11,10,15,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.sheet-inner{max-width:36rem;margin:0 auto;display:flex;flex-direction:column;gap:14px;-webkit-user-select:text;user-select:text}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
+.sheet h2{margin:0;font-weight:500;font-size:1.8rem;letter-spacing:.04em;text-wrap:balance}
+#card-title{font-size:clamp(2rem,8vw,2.8rem);line-height:1.05}
+.close{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:none;white-space:nowrap}
+.card-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.card-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:14px 2px;border-bottom:1px solid var(--line)}
+.card-item .num{font-family:var(--f-mono);font-size:.85rem;color:var(--ivory-dim)}
+.card-item.open .num{color:var(--neon)}
+.card-item .t{font-size:1.1rem;font-weight:500}
+.card-item:not(.open) .t{color:var(--ivory-dim)}
+.card-item .h{margin-top:2px;font-family:var(--f-body);font-size:1rem;line-height:1.4;color:var(--ivory-dim)}
+.read{min-height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--neon);background:var(--neon-soft)}
+.about{font-family:var(--f-body);font-size:.98rem;line-height:1.5;color:var(--ivory-dim);max-width:62ch}
+.text-btn{align-self:flex-start;padding:8px 0;border:0;background:none;color:var(--ivory-dim);text-decoration:underline;text-underline-offset:3px}
+.card-body p{margin:0 0 .9em;font-family:var(--f-body);font-size:1.13rem;line-height:1.6;max-width:62ch}
+.card-body p.reward{padding:10px 14px;border-left:2px solid var(--neon);background:var(--neon-soft);font-size:1.02rem}
+figure{margin:0}
+figure img{display:block;max-width:100%;max-height:52vmin;width:auto;height:auto;margin:0 auto;border-radius:8px;background:#000}
+figcaption{margin-top:6px;font-size:.8rem;line-height:1.45;color:var(--ivory-dim);text-align:center}
+figcaption a{color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px}
+.sources ul{margin:6px 0 0;padding-left:1.1em;display:grid;gap:6px;font-size:.88rem;line-height:1.45}
+.sources a{color:var(--ivory);text-underline-offset:3px;overflow-wrap:anywhere}
+
+/* unlock toast, placed by sketch.js */
+.toast{position:absolute;z-index:5;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:10px;row-gap:2px;padding:10px 10px 10px 14px;border-radius:14px;background:#16131c;border:1px solid var(--neon);box-shadow:0 0 24px rgba(182,242,74,.22)}
+.toast .lab{grid-column:1;grid-row:1;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--neon)}
+.toast strong{grid-column:1;grid-row:2;font-weight:500;font-size:1rem;line-height:1.3}
+.toast button{grid-column:2;grid-row:1 / span 2;min-height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:none}
+.toast.show{animation:drop .25s ease-out}
+@keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* the signal map */
+.route-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.route{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);column-gap:18px;row-gap:4px;padding:14px 2px;border-bottom:1px solid var(--line)}
+.route .src{grid-row:1 / span 2;font-size:1.05rem;font-weight:500;letter-spacing:.02em}
+.route .src span{display:block;margin-top:2px;font-family:var(--f-mono);font-size:.78rem;font-weight:400;letter-spacing:.04em;color:var(--neon)}
+.route .dst{font-family:var(--f-body);font-size:1.05rem;line-height:1.4}
+.route .here{font-size:.85rem;line-height:1.4;color:var(--ivory-dim)}
+@media (max-width:520px){.route{grid-template-columns:1fr}.route .src{grid-row:auto}}
+
+/* the toast lets touches through to the room under it, except its Read button */
+.toast{pointer-events:none}
+.toast button{pointer-events:auto}
+
+/* "Prototype 5" stays on one line */
+h1{white-space:nowrap;font-size:clamp(2.1rem,9vw,3.6rem)}
+#app.short h1{font-size:2.3rem}
+
+/* the way back to all the rooms, only shown when the room was opened from them */
+.back-link{align-self:flex-start;padding:6px 0;border:0;background:none;color:var(--ivory-dim);font-size:.92rem;letter-spacing:.04em;text-decoration:underline;text-underline-offset:3px}
+.back-link:hover{color:var(--ivory)}

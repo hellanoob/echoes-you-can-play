@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0A0F">
+<title>Prototype 5 · Echoes You Can Play</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+</head>
+<body>
+<div id="safe" aria-hidden="true"></div>
+
+<div id="app">
+<div id="stage"></div>
+
+<div class="hud" id="hud" hidden>
+  <button class="pill" id="exit-btn" type="button" hidden>Exit</button>
+  <button class="pill" id="help-btn" type="button">How to play</button>
+  <button class="pill" id="map-btn" type="button">Signal map</button>
+  <button class="pill" id="archive-btn" type="button">Archive<span class="count" id="archive-count">0/6</span></button>
+</div>
+
+<div class="toast" id="toast" role="status" hidden>
+  <span class="lab" id="toast-lab">Unlocked</span>
+  <strong id="toast-title"></strong>
+  <button id="toast-read" type="button">Read</button>
+</div>
+
+<section class="overlay" id="start" aria-labelledby="start-title">
+  <div class="start-inner">
+    <figure class="start-photo" id="start-photo"><img id="start-img" alt=""><figcaption><a id="start-credit" target="_blank" rel="noopener"></a><span class="credit-note">, cropped and dimmed</span></figcaption></figure>
+    <div class="start-head">
+      <button class="back-link" id="exit-link" type="button" hidden>‹ All rooms</button>
+      <p class="eyebrow">Echoes You Can Play · Room 3</p>
+      <h1 id="start-title">Prototype 5</h1>
+      <p class="sub">Toronto, 2026</p>
+      <p class="lead">My own instrument, opened up. A headband, a heartbeat, a laptop and a phone, all wired into one patch. Play each part by hand, and the wiring unlocks as you play.</p>
+    </div>
+    <div class="start-body">
+      <div class="start-block" id="start-how">
+        <p class="help" id="how-help"></p>
+        <p class="caveat" id="how-caveat"></p>
+        <button class="big-btn" id="start-btn" type="button">Tap to start</button>
+        <p class="tip">No sound? Check the silent switch and the volume.</p>
+        <div class="share" id="share" hidden>
+          <div class="qr" id="qr" hidden></div>
+          <p class="qr-text" id="qr-text">Or open this page on your phone.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="map" role="dialog" aria-modal="true" aria-labelledby="map-title" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head">
+      <h2 id="map-title">Signal map</h2>
+      <button class="close" id="map-close" type="button">Back to the room</button>
+    </div>
+    <p class="about">What drives what. In the performance each source is my body or my desk, and everything goes into one VCV Rack patch. In this room you play the sources by hand.</p>
+    <ol class="route-list">
+      <li class="route"><p class="src">Headband<span>raw EEG: alpha, beta, delta</span></p><p class="dst">Pitch of three synth layers in a four step sequencer that never stops</p><p class="here">Here: the three waves drift on their own. Drag them.</p></li>
+      <li class="route"><p class="src">Headband<span>blink</span></p><p class="dst">Rings the bell</p><p class="here">Here: the eyes blink on their own every few seconds. Tap them to blink more.</p></li>
+      <li class="route"><p class="src">Headband<span>focus</span></p><p class="dst">Delay on the bell. Focus keeps rising, so the bell smears into echoes</p><p class="here">Here: it rises on its own.</p></li>
+      <li class="route"><p class="src">Headband<span>eyebrow raise</span></p><p class="dst">Brings focus down and keeps it down while held, so the delay clears</p><p class="here">Here: hold the eyebrows up.</p></li>
+      <li class="route"><p class="src">Apple Watch<span>heart rate</span></p><p class="dst">Tempo of everything. The drop runs at four times the tempo</p><p class="here">Here: tap the heart like a heartbeat. The tempo is half of what you tap, and it settles back to 60.</p></li>
+      <li class="route"><p class="src">Laptop<span>lid angle</span></p><p class="dst">Distorted bass. Wider open, more bass and more grit</p><p class="here">Here: drag the lid.</p></li>
+      <li class="route"><p class="src">Laptop<span>tap and hard hit</span></p><p class="dst">Tap: snare over the beat. Hard hit: distorted techno kick</p><p class="here">Here: the TAP and HIT pads on the box.</p></li>
+      <li class="route"><p class="src">Phone<span>shake</span></p><p class="dst">The drop: the melody ducks, the beat stops, a fast kick fades in. Keep going and a riser builds</p><p class="here">Here: shake your phone, or shake the one in the room with the mouse.</p></li>
+      <li class="route"><p class="src">Beat<span>kick and hat</span></p><p class="dst">Always going under the melody. Switched on and off by hand. Stops whenever the drop is on, so the kicks never overlap</p><p class="here">Here: BEAT on the rack.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sheet" id="archive" role="dialog" aria-modal="true" aria-labelledby="archive-title" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head">
+      <h2 id="archive-title">Archive</h2>
+      <button class="close" id="archive-close" type="button">Back to the room</button>
+    </div>
+    <ol class="card-list" id="card-list"></ol>
+    <p class="about">All sound is made live in the browser, with no recordings. The headband, the watch, the laptop's sensors and the phone are stood in for by things you tap and drag. The sounds are made to work like my patch, not copied from it.</p>
+    <button class="text-btn" id="relock" type="button">Lock the cards again</button>
+  </div>
+</section>
+
+<section class="sheet" id="card" role="dialog" aria-modal="true" aria-labelledby="card-title" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head">
+      <p class="eyebrow" id="card-eyebrow"></p>
+      <button class="close" id="card-close" type="button">Back to the room</button>
+    </div>
+    <h2 id="card-title"></h2>
+    <figure id="card-fig" hidden><img id="card-img" alt=""><figcaption id="card-credit"></figcaption></figure>
+    <div class="card-body" id="card-body"></div>
+  </div>
+</section>
+</div>
+
+<script src="cards.js"></script>
+<script src="sketch.js"></script>
+</body>
+</html>
