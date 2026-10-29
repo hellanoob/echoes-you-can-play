@@ -8,7 +8,7 @@
     room with a cable to its channel on the rack strip at the bottom, so you can see what drives what.
 
   The parts
-  - Headband, raw EEG: alpha, beta and delta each set the pitch of one synth layer. The three layers run a
+  - Headband, raw EEG: alpha, theta and beta each set the pitch of one synth layer. The three layers run a
     four step sequencer that never stops. Nobody here wears the headband, so the three waves drift on
     their own, like a recording, and you can drag any of them. Let go and it drifts again.
   - Headband, blink: tap the eyes. Each blink rings the bell.
@@ -88,7 +88,7 @@ const MODES = {
 
 // the three layers, in the order of the headband's rows
 const LAYERS = [
-  { id: 'delta', sym: 'δ', name: 'DELTA', col: '#7C9CFF', drift: 0.05, cycles: 2, oct: -12, pattern: [0, 0, 2, 1], wave: 'triangle', len: 0.95, gain: 0.26, cut: 900 },
+  { id: 'theta', sym: 'θ', name: 'THETA', col: '#7C9CFF', drift: 0.05, cycles: 2, oct: -12, pattern: [0, 0, 2, 1], wave: 'triangle', len: 0.95, gain: 0.26, cut: 900 },
   { id: 'alpha', sym: 'α', name: 'ALPHA', col: '#B6F24A', drift: 0.11, cycles: 6, oct: 0, pattern: [0, 2, 4, 3], wave: 'sawtooth', len: 0.55, gain: 0.07, cut: 1500 },
   { id: 'beta', sym: 'β', name: 'BETA', col: '#FF9F43', drift: 0.3, cycles: 15, oct: 12, pattern: [4, 2, 3, 1], wave: 'square', len: 0.22, gain: 0.04, cut: 2600 }
 ];
@@ -96,7 +96,7 @@ const BANDS = LAYERS.map((l, i) => ({ v: 0.5, manual: 0.5, blend: 0, holding: fa
 
 // the rack strip: one channel per sound
 const CH = [
-  { id: 'delta', lab: 'δ', sub: 'DELTA', col: LAYERS[0].col },
+  { id: 'theta', lab: 'θ', sub: 'THETA', col: LAYERS[0].col },
   { id: 'alpha', lab: 'α', sub: 'ALPHA', col: LAYERS[1].col },
   { id: 'beta', lab: 'β', sub: 'BETA', col: LAYERS[2].col },
   { id: 'bell', lab: 'BELL', sub: 'DELAY', col: '#E7B8FF' },
@@ -324,7 +324,7 @@ function placeRack() {
   // where each cable starts
   const F = L.face, S = L.scope, B = L.box, P = L.phone, Wt = L.watch;
   L.cables = [
-    { ch: 'delta', x: S.rows[0].tx1 + 4, y: S.rows[0].cy },
+    { ch: 'theta', x: S.rows[0].tx1 + 4, y: S.rows[0].cy },
     { ch: 'alpha', x: S.rows[1].tx1 + 4, y: S.rows[1].cy },
     { ch: 'beta', x: S.rows[2].tx1 + 4, y: S.rows[2].cy },
     { ch: 'bell', x: F.cx, y: F.ey + F.ery * 2 },
@@ -696,13 +696,13 @@ function playStep(i, t) {
     seq.step = (seq.step + 1) % 4;
     const len = per * d;
     LAYERS.forEach((ly, li) => {
-      if (li === 0 && seq.step % 2 === 1 && per < 4) return;        // delta holds across two steps
+      if (li === 0 && seq.step % 2 === 1 && per < 4) return;        // theta, the low layer, holds across two steps
       const m = layerMidi(li, seq.step);
       synthNote(li, t, m, li === 0 && per < 4 ? len * 2 * ly.len : len * ly.len);
       vis.push({ at: t, f: () => { CH_BY_ID[ly.id].m = 1; cablePulse(ly.id); } });
     });
   }
-  // the bass, on a broken rhythm, a step under the delta layer
+  // the bass, on a broken rhythm, a step under the theta layer
   if ([0, 3, 6, 8, 11, 14].includes(i)) {
     const m = layerMidi(0, seq.step) - 12, hz = midiHz(m), a = audio;
     a.bo.frequency.setValueAtTime(hz, t); a.bs.frequency.setValueAtTime(hz / 2, t);
@@ -1009,7 +1009,7 @@ function drawScope(ctx, now) {
     ctx.fillText(ly.sym, r.lx, r.cy);
     font(ctx, '400', 9.5, MONO); ctx.fillStyle = COL.dim;
     ctx.fillText(ly.name, r.lx + 16 * L.fs, r.cy + 1);
-    // the wave: slow for delta, fast for beta, taller where the band is high
+    // the wave: slow for theta, fast for beta, taller where the band is high
     ctx.strokeStyle = hexA(ly.col, 0.55); ctx.lineWidth = 1.4;
     ctx.beginPath();
     const n = Math.max(30, Math.floor((r.tx1 - r.tx0) / 3));

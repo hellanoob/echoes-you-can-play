@@ -19,7 +19,7 @@ window.CARDS = [
     title: 'Three waves, three voices',
     hint: 'Drag one of the three brain waves on the headband.',
     body: [
-      'In the performance I wear an EEG headband. It sends its raw signal split into bands, and I use three of them: alpha, beta and delta.',
+      'In the performance I wear an EEG headband. It sends its raw signal split into bands, and I use three of them: alpha, theta and beta.',
       'Each band sets the pitch of one synth layer. The three layers play a four step sequencer that never stops, so the melody is always there, and it moves as my brain does.',
       'Nobody here wears the headband, so the three waves drift on their own, like a recording of one. Drag any of them to take over. Let go, and after a few seconds it drifts again.'
     ]

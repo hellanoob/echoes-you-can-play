@@ -19,7 +19,7 @@ The room is my performance setup, opened up. Every source is an object in the ro
 
 Always going: the melody (three synth layers on a four step sequencer) and the lo-fi beat (kick and hat).
 
-  Headband, the three waves (top left)   delta, alpha, beta. Each sets the pitch of one layer. They drift on their own like a recording. Drag one to take over; it drifts again 4 seconds after you let go.
+  Headband, the three waves (top left)   theta, alpha, beta. Each sets the pitch of one layer. They drift on their own like a recording. Drag one to take over; it drifts again 4 seconds after you let go.
   Headband, eyes                         they blink on their own every 2.5 to 6 seconds. Tap them to blink more. Every blink rings the bell.
   Headband, focus (bar under the waves)  rises on its own over about 35 seconds and feeds the bell's delay: more feedback, more echoes, the delay starts to warble and pan, and the room swirls.
   Headband, eyebrows                     hold the forehead above the eyes. The brows stay up while held: the delay is flushed and focus drops and stays low. Let go and it climbs again.
@@ -87,14 +87,14 @@ cards.js: all card text. Keep the six ids.
 
 MY PATCH VERSUS THIS ROOM
 
-From my setup: the sources and where each one goes, 60 BPM, the four step sequencer with three layers on alpha, beta and delta, blink to bell, focus to the bell's delay, eyebrows to clear it, the drop at four times the tempo, the riser on sustained effort, the beat closing during the drop, lid to distorted bass, tap to snare, hard hit to distorted kick, the beat switched on and off by hand.
+From my setup: the sources and where each one goes, 60 BPM, the four step sequencer with three layers on alpha, theta and beta, blink to bell, focus to the bell's delay, eyebrows to clear it, the drop at four times the tempo, the riser on sustained effort, the beat closing during the drop, lid to distorted bass, tap to snare, hard hit to distorted kick, the beat switched on and off by hand.
 Made for this room: every sound (synthesised to work like the patch, not copied from it), the notes and patterns, the scale, the eighth note step rate, how the lid shapes the bass, the heart as a half speed tap tempo, the natural blink interval, the drifting waves, the visuals.
 
 
 HOW THE MELODY STAYS IN KEY
 
 Every note comes from one scale, A minor pentatonic (A C D E G).
-Each layer is a four step pattern written in scale steps, not semitones (LAYERS in sketch.js): delta 0 0 2 1 from A2, alpha 0 2 4 3 from A3, beta 4 2 3 1 from A4.
+Each layer is a four step pattern written in scale steps, not semitones (LAYERS in sketch.js): theta 0 0 2 1 from A2, alpha 0 2 4 3 from A3, beta 4 2 3 1 from A4.
 Each brain wave moves its whole pattern up 0 to 5 scale steps (one octave). It moves in scale steps, so it can only land on notes of the scale. The pentatonic has no half step clashes, so any stack of the three sounds fine.
-The melody steps on eighth notes. Delta holds each note for two steps.
-The bass plays delta's current note an octave lower, on a broken sixteenth rhythm (steps 1, 4, 7, 9, 12 and 15 of 16). The lid only sets its level, filter and drive, never its note. That is why it moves with the harmony and never sounds off.
+The melody steps on eighth notes. Theta, the low layer, holds each note for two steps.
+The bass plays the theta layer's current note an octave lower, on a broken sixteenth rhythm (steps 1, 4, 7, 9, 12 and 15 of 16). The lid only sets its level, filter and drive, never its note. That is why it moves with the harmony and never sounds off.
